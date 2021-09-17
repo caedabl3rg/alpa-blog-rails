@@ -19,10 +19,11 @@ class ArticlesController < ApplicationController
     end
 
     def create
+
         @article = Article.new(article_params)
         @article.user = current_user
         if @article.save
-            flash[:nortice] = "Article was created successfully."
+            flash[:notice] = "Article was created successfully."
             redirect_to @article
         else
             render 'new'
@@ -49,7 +50,7 @@ class ArticlesController < ApplicationController
     end
     
     def article_params
-        params.require(:article).permit(:title, :description)
+        params.require(:article).permit(:title, :description, category_ids: [])
     end
 
     def require_same_user
